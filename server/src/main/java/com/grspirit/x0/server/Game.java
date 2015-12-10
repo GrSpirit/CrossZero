@@ -21,6 +21,12 @@ public class Game implements Runnable {
             X0Client client2 = new X0Client(socket2);
             client1.sendPlayerNumber(1);
             client2.sendPlayerNumber(2);
+            Thread fw1 = new Thread(new StreamForwarder(socket1.getInputStream(), socket2.getOutputStream()));
+            Thread fw2 = new Thread(new StreamForwarder(socket2.getInputStream(), socket1.getOutputStream()));
+            fw1.start();
+            fw2.start();
+            fw1.join();
+            fw2.join();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -36,14 +42,6 @@ public class Game implements Runnable {
                     socket2.close();
             }
             catch (Exception x) {}
-        }
-    }
-
-    protected void forwardStreams() throws IOException {
-        byte[] data = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = socket1.getInputStream().read(data)) >= 0) {
-            socket2
         }
     }
 }

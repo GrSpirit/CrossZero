@@ -40,8 +40,12 @@ public class X0Client {
         DataOutputStream buffer = new DataOutputStream(data);
         buffer.writeInt(playerNumber);
         buffer.flush();
-        out.writeShort(PLAYER_NUMBER_CMD);
-        out.writeShort(data.size());
-        out.write(data.getRawData());
+        writeData(PLAYER_NUMBER_CMD, data.getRawData());
+    }
+
+    private void writeData(int command, byte[] data) throws IOException {
+        out.writeShort(command);
+        out.writeShort(data.length);
+        out.write(data);
     }
 }

@@ -2,6 +2,7 @@ package com.grspirit.crosszero;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,9 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.grspirit.crosszero.model.Field;
 
-public class CrossZero extends ApplicationAdapter {
-	public static int WIDTH = 800;
-	public static int HEIGHT = 480;
+public class MainScreen implements Screen {
 	//SpriteBatch batch;
 	Field field;
 	ShapeRenderer shapeRenderer;
@@ -22,19 +21,18 @@ public class CrossZero extends ApplicationAdapter {
 
 	private float rect_size;
 
-	@Override
-	public void create () {
+	public MainScreen () {
 		//batch = new SpriteBatch();
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, WIDTH, HEIGHT);
+		camera.setToOrtho(false, X0Game.WIDTH, X0Game.HEIGHT);
 		shapeRenderer = new ShapeRenderer();
 		//img = new Texture("badlogic.jpg");
-		rect_size = HEIGHT / Field.MAX_SIZE;
+		rect_size = X0Game.HEIGHT / Field.MAX_SIZE;
 		field = Field.getInstance();
 	}
 
 	@Override
-	public void render () {
+	public void render (float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
@@ -74,4 +72,34 @@ public class CrossZero extends ApplicationAdapter {
 			}
 		}
 	}
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
 }

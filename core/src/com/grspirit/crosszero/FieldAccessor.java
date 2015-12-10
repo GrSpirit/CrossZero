@@ -32,7 +32,7 @@ public class FieldAccessor {
     public void touchCell(int x, int y) throws Field.IncorrectValue {
         try {
             field.setValue(x, y, currentPlayer.getFigure());
-            
+
             switchPlayer();
         }
         catch (Field.CellIsBusy e) {

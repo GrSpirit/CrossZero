@@ -13,7 +13,7 @@ public class MenuButton extends TextButton {
     TextButton button;
 
     public MenuButton(String text) {
-        super()
+        //super();
         Skin skin = new Skin();
         Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.CORAL);

@@ -42,7 +42,7 @@ class StreamForwarder implements Runnable {
                 out.writeShort(size);
                 out.write(data, 0, size);
             }
-            while (cmd != 9);
+            while (cmd != Game.STOP);
 
         }
         catch (Exception e)

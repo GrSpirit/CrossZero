@@ -1,13 +1,13 @@
 package com.grspirit.crosszero;
 
-import com.grspirit.crosszero.model.Field;
+import com.grspirit.crosszero.model.Grid;
 import com.grspirit.crosszero.model.Player;
 
 /**
  * Created by vita on 08.12.15.
  */
 public class FieldAccessor {
-    private Field field;
+    private Grid grid;
     private Player currentPlayer;
     private Player[] players;
     private static FieldAccessor ourInstance = new FieldAccessor();
@@ -17,10 +17,10 @@ public class FieldAccessor {
     }
 
     public FieldAccessor() {
-        field = Field.getInstance();
+        grid = Grid.getInstance();
         players = new Player[2];
-        players[0].setFigure(Field.CROSS);
-        players[1].setFigure(Field.ZERO);
+        players[0].setFigure(Grid.CROSS);
+        players[1].setFigure(Grid.ZERO);
         currentPlayer = players[0];
     }
 
@@ -29,29 +29,29 @@ public class FieldAccessor {
         return currentPlayer;
     }
 
-    public void touchCell(int x, int y) throws Field.IncorrectValue {
+    public void touchCell(int x, int y) throws Grid.IncorrectValue {
         try {
-            field.setValue(x, y, currentPlayer.getFigure());
+            grid.setValue(x, y, currentPlayer.getFigure());
 
             switchPlayer();
         }
-        catch (Field.CellIsBusy e) {
+        catch (Grid.CellIsBusy e) {
             e.getY();
         }
     }
 
     public boolean checkWin(int x, int y) {
-        int figure = field.getValue(x, y);
+        int figure = grid.getValue(x, y);
 
         // Horizontal
         int count = 1;
         for (int i = x - 1; i >= 0; i--) {
-            if (field.getValue(i, y) != figure)
+            if (grid.getValue(i, y) != figure)
                 break;
             count++;
         }
-        for (int i = x + 1; i < Field.MAX_SIZE; i++) {
-            if (field.getValue(i, y) != figure)
+        for (int i = x + 1; i < Grid.MAX_SIZE; i++) {
+            if (grid.getValue(i, y) != figure)
                 break;
             count++;
         }
@@ -61,12 +61,12 @@ public class FieldAccessor {
         // Vertical
         count = 1;
         for (int i = y - 1; i >= 0; i--) {
-            if (field.getValue(x, i) != figure)
+            if (grid.getValue(x, i) != figure)
                 break;
             count++;
         }
-        for (int i = y + 1; i < Field.MAX_SIZE; i++) {
-            if (field.getValue(x, i) != figure)
+        for (int i = y + 1; i < Grid.MAX_SIZE; i++) {
+            if (grid.getValue(x, i) != figure)
                 break;
             count++;
         }
@@ -75,12 +75,12 @@ public class FieldAccessor {
         // Diagonal1
         count = 1;
         for (int i = 1; (i <= x) && (i <= y); i++) {
-            if (field.getValue(x - i, y - i) != figure)
+            if (grid.getValue(x - i, y - i) != figure)
                 break;
             count++;
         }
-        for (int i = 1; i < Field.MAX_SIZE; i++) {
-            if (field.getValue(x + i, y + i) != figure)
+        for (int i = 1; i < Grid.MAX_SIZE; i++) {
+            if (grid.getValue(x + i, y + i) != figure)
                 break;
             count++;
         }
@@ -88,13 +88,13 @@ public class FieldAccessor {
 
         // Diagonal2
         count = 1;
-        for (int i = 1; (i <= x) && (i <= Field.MAX_SIZE); i++) {
-            if (field.getValue(x - i, y + i) != figure)
+        for (int i = 1; (i <= x) && (i <= Grid.MAX_SIZE); i++) {
+            if (grid.getValue(x - i, y + i) != figure)
                 break;
             count++;
         }
-        for (int i = 1; (i <= y) && (i <= Field.MAX_SIZE); i++) {
-            if (field.getValue(x + i, y - i) != figure)
+        for (int i = 1; (i <= y) && (i <= Grid.MAX_SIZE); i++) {
+            if (grid.getValue(x + i, y - i) != figure)
                 break;
             count++;
         }

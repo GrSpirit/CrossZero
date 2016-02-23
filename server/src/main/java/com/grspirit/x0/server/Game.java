@@ -7,22 +7,27 @@ import java.net.Socket;
  * Created by vita on 09.12.15.
  */
 public class Game implements Runnable {
-    private Socket socket1;
-    private Socket socket2;
-    public Game(Socket socket1, Socket socket2){
-        this.socket1 = socket1;
-        this.socket2 = socket2;
+    public static final int WAIT_FOR_PLAYER = 1;
+    public static final int PLAYER_NUMBER_CMD = 2;
+    public static final int STOP = 9;
+    private X0Client client1;
+    private X0Client client2;
+    public Game(X0Client client1, X0Client client2){
+        this.client1 = client1;
+        this.client2 = client2;
     }
 
     @Override
     public void run() {
         try {
-            X0Client client1 = new X0Client(socket1);
-            X0Client client2 = new X0Client(socket2);
             client1.sendPlayerNumber(1);
             client2.sendPlayerNumber(2);
-            Thread fw1 = new Thread(new StreamForwarder(socket1.getInputStream(), socket2.getOutputStream()));
-            Thread fw2 = new Thread(new StreamForwarder(socket2.getInputStream(), socket1.getOutputStream()));
+            Thread fw1 = new Thread(
+                    new StreamForwarder(
+                            client1.getSocket().getInputStream(), client2.getSocket().getOutputStream()));
+            Thread fw2 = new Thread(
+                    new StreamForwarder(
+                            client2.getSocket().getInputStream(), client1.getSocket().getOutputStream()));
             fw1.start();
             fw2.start();
             fw1.join();
@@ -32,16 +37,8 @@ public class Game implements Runnable {
             e.printStackTrace();
         }
         finally {
-            try {
-                if (socket1.isConnected())
-                    socket1.close();
-            }
-            catch (Exception x) {}
-            try {
-                if (socket2.isConnected())
-                    socket2.close();
-            }
-            catch (Exception x) {}
+            client1.dispose();
+            client2.dispose();
         }
     }
 }

@@ -1,16 +1,16 @@
 package com.grspirit.crosszero;
 
 import com.badlogic.gdx.InputProcessor;
-import com.grspirit.crosszero.model.Grid;
+import com.grspirit.crosszero.view.GridView;
 
 /**
  * Created by vita on 21.02.16.
  */
 public class InputHandler implements InputProcessor {
-    private Grid grid;
+    private GridView gridView;
 
-    public InputHandler(Grid grid) {
-        this.grid = grid;
+    public InputHandler(GridView gridView) {
+        this.gridView = gridView;
     }
 
     @Override
@@ -30,8 +30,8 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX <= grid.getScreenWidth() && screenY <= grid.getScreenHeight())
-            grid.onClick(screenX, screenX);
+        if (screenX <= gridView.getScreenWidth() && screenY <= gridView.getScreenHeight())
+            gridView.onTouch(screenX, screenY);
         return true;
     }
 

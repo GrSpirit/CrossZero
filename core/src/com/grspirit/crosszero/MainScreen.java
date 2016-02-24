@@ -28,7 +28,7 @@ public class MainScreen implements Screen {
 		*/
 		world = new GameWorld();
 		renderer = new GameRender(world);
-		Gdx.input.setInputProcessor(new InputHandler(world.getGrid()));
+		Gdx.input.setInputProcessor(new InputHandler(renderer.getGridView()));
 	}
 
 	@Override

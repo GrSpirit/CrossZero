@@ -8,7 +8,7 @@ import com.grspirit.crosszero.model.Grid;
 public class GameWorld {
     private Grid grid;
     public GameWorld() {
-        grid = new Grid(X0Game.WIDTH, X0Game.HEIGHT);
+        grid = new Grid();
     }
 
     public Grid getGrid() {

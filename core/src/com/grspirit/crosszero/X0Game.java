@@ -26,8 +26,9 @@ public class X0Game extends Game {
 
     @Override
     public void create() {
-        this.skin = createSkin();
-        this.setScreen(new HelloScreen());
+  //      this.skin = createSkin();
+  //      this.setScreen(new HelloScreen());
+        this.setScreen(new MainScreen());
     }
 
     public void render() {
@@ -38,7 +39,7 @@ public class X0Game extends Game {
         return skin;
     }
 
-    public Skin createSkin() {
+    /*public Skin createSkin() {
         skin = new Skin();
         Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.CORAL);
@@ -57,5 +58,5 @@ public class X0Game extends Game {
         style.font = skin.getFont("default");
         skin.add("default", style);
         return  skin;
-    }
+    }*/
 }

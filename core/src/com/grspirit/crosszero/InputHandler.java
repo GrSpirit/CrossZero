@@ -7,10 +7,10 @@ import com.grspirit.crosszero.view.GridView;
  * Created by vita on 21.02.16.
  */
 public class InputHandler implements InputProcessor {
-    private GridView gridView;
+    private GameWorld world;
 
-    public InputHandler(GridView gridView) {
-        this.gridView = gridView;
+    public InputHandler(GameWorld gameWorld) {
+        this.world = gameWorld;
     }
 
     @Override
@@ -30,8 +30,7 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX <= gridView.getScreenWidth() && screenY <= gridView.getScreenHeight())
-            gridView.onTouch(screenX, screenY);
+        world.onTouch(screenX, screenY);
         return true;
     }
 

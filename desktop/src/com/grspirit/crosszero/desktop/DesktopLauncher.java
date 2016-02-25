@@ -7,6 +7,8 @@ import com.grspirit.crosszero.X0Game;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = X0Game.WIDTH;
+		config.height = X0Game.HEIGHT;
 		new LwjglApplication(new X0Game(), config);
 	}
 }

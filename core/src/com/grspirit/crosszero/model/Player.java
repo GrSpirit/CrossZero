@@ -5,6 +5,7 @@ package com.grspirit.crosszero.model;
  */
 public class Player {
     private int figure;
+    private String name;
 
     public Player() {
     }

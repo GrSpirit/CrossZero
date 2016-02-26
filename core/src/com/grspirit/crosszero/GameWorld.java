@@ -11,7 +11,7 @@ import com.grspirit.crosszero.view.GridView;
  */
 public class GameWorld {
     private Grid grid;
-    private Player currentPlayer;
+    private int currentPlayer;
     private Player[] players;
     private boolean win;
     public GameWorld() {
@@ -19,7 +19,7 @@ public class GameWorld {
         players = new Player[2];
         players[0] = new Player(Grid.CROSS);
         players[1] = new Player(Grid.ZERO);
-        currentPlayer = players[0];
+        currentPlayer = 0;
         win = false;
     }
 
@@ -32,26 +32,33 @@ public class GameWorld {
     }
 
     public void onTouch(int screenX, int screenY) {
-        int x = screenX / grid.getCellSize();
-        int y = (X0Game.HEIGHT - screenY) / grid.getCellSize();
-        try {
-            grid.setValue(x, y, currentPlayer.getFigure());
-            if (grid.checkWin(x, y)) {
-                win = true;
-            }
-            else {
-                currentPlayer = players[(currentPlayer.getFigure() - 1) ^ 1];
-            }
-        }
-        catch (Grid.CellIsBusy e) {
+        if (!isWin()) {
+            int x = screenX / grid.getCellSize();
+            int y = (X0Game.HEIGHT - screenY) / grid.getCellSize();
+            try {
+                grid.setValue(x, y, getCurrentPlayer().getFigure());
+                if (grid.checkWin(x, y)) {
+                    win = true;
+                } else {
+                    currentPlayer = currentPlayer ^ 1;
+                }
+            } catch (Grid.CellIsBusy e) {
 
-        }
-        catch (Grid.IncorrectValue e) {
+            } catch (Grid.IncorrectValue e) {
 
+            }
         }
     }
 
     public boolean isWin() {
         return win;
+    }
+
+    public Player getCurrentPlayer() {
+        return players[currentPlayer];
+    }
+
+    public String getWinMessage() {
+        return String.format("Player %s won!", getCurrentPlayer().getName());
     }
 }

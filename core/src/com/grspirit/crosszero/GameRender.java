@@ -1,9 +1,9 @@
 package com.grspirit.crosszero;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.grspirit.crosszero.view.GridView;
 
@@ -12,9 +12,11 @@ import com.grspirit.crosszero.view.GridView;
  */
 public class GameRender {
     private GameWorld world;
+    private GridView gridView;
+
     private OrthographicCamera camera;
     private ShapeRenderer shapeRenderer;
-    private GridView gridView;
+    private BitmapFont font;
 
     public GameRender(GameWorld world) {
         this.world = world;
@@ -22,7 +24,9 @@ public class GameRender {
         camera.setToOrtho(false, X0Game.WIDTH, X0Game.HEIGHT);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
-        gridView = new GridView(world.getGrid(), shapeRenderer, X0Game.WIDTH, X0Game.HEIGHT);
+        gridView = new GridView(world.getGrid(), shapeRenderer);
+        font = new BitmapFont();
+        //font
     }
 
     public void render() {
@@ -30,6 +34,10 @@ public class GameRender {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         gridView.render();
+
+        if (world.isWin()) {
+
+        }
     }
 
     public GridView getGridView() {

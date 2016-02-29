@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.grspirit.crosszero.view.GridView;
 
 /**
@@ -16,7 +18,9 @@ public class GameRender {
 
     private OrthographicCamera camera;
     private ShapeRenderer shapeRenderer;
+    private SpriteBatch batch;
     private BitmapFont font;
+    private Dialog winDialog;
 
     public GameRender(GameWorld world) {
         this.world = world;
@@ -25,8 +29,9 @@ public class GameRender {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
         gridView = new GridView(world.getGrid(), shapeRenderer);
+        batch = new SpriteBatch();
         font = new BitmapFont();
-        //font
+        winDialog = new Dialog("You win!",  null);
     }
 
     public void render() {
@@ -36,7 +41,9 @@ public class GameRender {
         gridView.render();
 
         if (world.isWin()) {
-
+            batch.begin();
+            font.draw(batch, world.getWinMessage(), 40, X0Game.HEIGHT / 2);
+            batch.end();
         }
     }
 

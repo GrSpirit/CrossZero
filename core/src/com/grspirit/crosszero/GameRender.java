@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.grspirit.crosszero.view.GridView;
 
 /**
  * Created by vita on 21.02.16.
  */
 public class GameRender {
+    private X0Game game;
     private GameWorld world;
     private GridView gridView;
 
@@ -23,6 +25,7 @@ public class GameRender {
     private Dialog winDialog;
 
     public GameRender(GameWorld world) {
+        this.game = X0Game.getInstance();
         this.world = world;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, X0Game.WIDTH, X0Game.HEIGHT);
@@ -31,7 +34,7 @@ public class GameRender {
         gridView = new GridView(world.getGrid(), shapeRenderer);
         batch = new SpriteBatch();
         font = new BitmapFont();
-        winDialog = new Dialog("You win!",  null);
+        winDialog = new Dialog("You win!", game.getSkin());
     }
 
     public void render() {
@@ -50,4 +53,5 @@ public class GameRender {
     public GridView getGridView() {
         return gridView;
     }
+
 }

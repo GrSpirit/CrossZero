@@ -3,9 +3,13 @@ package com.grspirit.crosszero;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
  * Created by vita on 10.12.15.
@@ -21,16 +25,17 @@ public class X0Game extends Game {
         return instance;
     }
 
-    public X0Game() {
+    private X0Game() {
     }
 
     @Override
     public void create() {
-  //      this.skin = createSkin();
-  //      this.setScreen(new HelloScreen());
-        this.setScreen(new MainScreen());
+        createSkin();
+        this.setScreen(new HelloScreen());
+//        this.setScreen(new MainScreen());
     }
 
+    @Override
     public void render() {
         super.render();
     }
@@ -39,13 +44,14 @@ public class X0Game extends Game {
         return skin;
     }
 
-    /*public Skin createSkin() {
+    private void createSkin() {
         skin = new Skin();
         Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.CORAL);
         pixmap.fill();
 
-        skin.add("coral", pixmap);
+        Texture coral = new Texture(pixmap);
+        skin.add("coral", coral);
 
         BitmapFont font = new BitmapFont();
         skin.add("default", font);
@@ -56,7 +62,10 @@ public class X0Game extends Game {
         style.checked = skin.newDrawable("coral", Color.BLUE);
         style.over = skin.newDrawable("coral", Color.LIGHT_GRAY);
         style.font = skin.getFont("default");
+
         skin.add("default", style);
-        return  skin;
-    }*/
+
+        Window.WindowStyle windowStyle = new Window.WindowStyle();
+        skin.add("default", windowStyle);
+    }
 }
